@@ -37,7 +37,8 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      ACCESS_TOKEN_SECRET:
+      DATABASE_URL:
     volumes:
       - .:/usr/src/myapp
       - /usr/src/myapp/node_modules

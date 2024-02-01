@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import type { UserRepository } from '~/repository/users'
 import { ErrorCode, ServiceError } from './errors'
+import jwt from 'jsonwebtoken'
 
 interface LogInDTO {
   email: string
@@ -29,11 +30,20 @@ export const createAuthService = ({
       throw new ServiceError(ErrorCode.INVALID_CREDENTIALS, 401)
     }
 
-    if (!(await bcrypt.compare(logInData.password, user.password))) {
+    const { email, password } = user
+    if (!(await bcrypt.compare(logInData.password, password))) {
       throw new ServiceError(ErrorCode.INVALID_CREDENTIALS, 401)
     }
 
-    return logInResult(user.email, 'faketoken')
+    const token = jwt.sign(
+      { email },
+      process.env['ACCESS_TOKEN_SECRET'] as string,
+      {
+        expiresIn: '30d',
+      },
+    )
+
+    return logInResult(email, token)
   }
 
   return { logIn }
