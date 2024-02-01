@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongo:
+    build:
+      context: ./mongodb_replica
+      args:
+        MONGO_VERSION: 4
+    env_file: .env
+    environment:
+      MONGO_REPLICA_HOST: ${DATABASE_HOST}
+      MONGO_REPLICA_PORT: ${DATABASE_PORT}
+      MONGO_COMMAND: 'mongo'
+    ports:
+      - '27018:27017'
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'mongo',
+          'admin',
+          '--port',
+          '27017',
+          '--eval',
+          "db.adminCommand('ping').ok",
+        ]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+  nodejs:
+    depends_on:
+      mongo:
+        condition: service_healthy
+    build:
+      context: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    volumes:
+      - .:/usr/src/myapp
+      - /usr/src/myapp/node_modules
+    ports:
+      - '3000:3000'
