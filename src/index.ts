@@ -5,6 +5,7 @@ import { createRouter } from '~/routes'
 import { createUserService } from './services/users'
 import { createUsersRepository } from './repository/prisma/users'
 import { prisma } from './repository/prisma'
+import { createAuthService } from './services/auth'
 
 const app = createApplication()
 
@@ -13,7 +14,8 @@ app.use(bodyParser)
 
 const userRepository = createUsersRepository(prisma)
 const userService = createUserService({ userRepository })
-const mainRouter = createRouter({ userService })
+const authService = createAuthService({ userRepository })
+const mainRouter = createRouter({ userService, authService })
 
 app.use(mainRouter.dispatch)
 

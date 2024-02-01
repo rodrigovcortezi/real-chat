@@ -1,7 +1,35 @@
+### Successful user registration
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
   "email": "rodrigovcortezi@gmail.com",
   "password": "secretpassword1"
+}
+
+### Successful login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "rodrigovcortezi@gmail.com",
+  "password": "secretpassword1"
+}
+
+### Unsuccessful login (wrong email)
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "rodrigo@gmail.com",
+  "password": "secretpassword1"
+}
+
+### Unsuccessful login (wrong password)
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "rodrigovcortezi@gmail.com",
+  "password": "wrongpassword"
 }

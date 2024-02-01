@@ -5,4 +5,4 @@ export const createUserSchema = z.object({
   password: z.string().min(8),
 })
 
-export type CreateUserRequest = z.infer<typeof createUserSchema>
+export type CreateUserSchema = z.infer<typeof createUserSchema>

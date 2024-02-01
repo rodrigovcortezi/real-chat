@@ -1,9 +1,11 @@
 import type { Context } from '~/lib/application'
-import type { CreateUserRequest } from '~/validation/users'
+import type { CreateUserSchema } from '~/validation/users'
 import { Router } from '~/lib/router'
 import { validator } from '~/middlewares/validator'
 import { createUserSchema } from '~/validation/users'
 import type { UserService } from '~/services/users'
+
+type CreateUserRequest = CreateUserSchema
 
 const createUserController = (userService: UserService) => {
   return async (ctx: Context) => {

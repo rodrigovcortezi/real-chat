@@ -6,7 +6,7 @@ export const errorHandler = async (ctx: Context, next: NextFunction) => {
     await next()
   } catch (err) {
     if (err instanceof ServiceError) {
-      ctx.res.statusCode = 422
+      ctx.res.statusCode = err.statusCode
       ctx.res.end(err.message)
     } else {
       console.error(err)
