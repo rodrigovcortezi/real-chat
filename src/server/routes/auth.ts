@@ -1,9 +1,9 @@
 import type { Context } from '~/lib/application'
 import { Router } from '~/lib/router'
-import { validator } from '~/middlewares/validator'
+import { validator } from '~/server/middlewares/validator'
 import type { AuthService } from '~/services/auth'
-import type { LogInSchema } from '~/validation/auth'
-import { logInSchema } from '~/validation/auth'
+import type { LogInSchema } from '~/server/validation/auth'
+import { logInSchema } from '~/server/validation/auth'
 
 type LogInRequest = LogInSchema
 
