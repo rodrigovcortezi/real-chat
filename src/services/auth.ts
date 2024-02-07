@@ -35,13 +35,12 @@ export const createAuthService = ({
       throw new ServiceError(ErrorCode.INVALID_CREDENTIALS, 401)
     }
 
-    const token = jwt.sign(
-      { email },
-      process.env['ACCESS_TOKEN_SECRET'] as string,
-      {
-        expiresIn: '30d',
-      },
-    )
+    const tokenSecret = process.env['AUTH_TOKEN_SECRET'] as string
+    const tokenExpiration = process.env['AUTH_TOKEN_EXPIRATION'] as string
+
+    const token = jwt.sign({ email }, tokenSecret, {
+      expiresIn: tokenExpiration,
+    })
 
     return logInResult(email, token)
   }
