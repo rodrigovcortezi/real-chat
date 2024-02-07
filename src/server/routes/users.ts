@@ -11,7 +11,7 @@ const createUserController = (userService: UserService) => {
   return async (ctx: Context) => {
     const body = ctx.request.body as CreateUserRequest
     const user = await userService.registerUser(body)
-    ctx.res.statusCode = 200
+    ctx.res.statusCode = 201
     ctx.res.setHeader('Content-Type', 'application/json')
     ctx.res.end(JSON.stringify(user))
   }
