@@ -4,7 +4,16 @@ Content-Type: application/json
 
 {
   "email": "rodrigovcortezi@gmail.com",
-  "password": "secretpassword1"
+  "password": "s3cret$password"
+}
+
+### Unsuccessful user registration (invalid password)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "rodrigovcortezi@gmail.com",
+  "password": "secretpassword"
 }
 
 ### Successful login
